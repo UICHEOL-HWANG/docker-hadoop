@@ -24,33 +24,39 @@ services:
   datanode01:
     <<: *datanode_base
     container_name: datanode01
-    hostname: datanode01
+    hostname: #{input_your IP}
     volumes:
       - datanode01:/opt/hadoop/dfs/data
       - datanode01:/opt/hadoop/yarn/data
       - namenode:/opt/spark/eventLog
+    ports:
+      - "9864:9864"
 #    networks:
 #      hs_bridge:
 #        ipv4_address: 192.0.0.2 
   datanode02:
     <<: *datanode_base
     container_name: datanode02
-    hostname: datanode02
+    hostname: #{input_your IP}
     volumes:
       - datanode02:/opt/hadoop/dfs/data
       - datanode02:/opt/hadoop/yarn/data
       - namenode:/opt/spark/eventLog
+    ports:
+      - "9865:9864"
 #    networks:
 #      hs_bridge:
 #        ipv4_address: 192.0.0.3
   datanode03:
     <<: *datanode_base
     container_name: datanode03
-    hostname: datanode03
+    hostname: #{input_your IP}
     volumes:
       - datanode03:/opt/hadoop/dfs/data
       - datanode03:/opt/hadoop/yarn/data
       - namenode:/opt/spark/eventLog
+    ports:
+      - "9866:9864" # datanode03의 포트 매핑
 #    networks:
 #      hs_bridge:
 #        ipv4_address: 192.0.0.4
@@ -81,32 +87,32 @@ services:
 #      hs_bridge:
 #        ipv4_address: 192.0.0.12
   
-  sparkhistoryserver:
-    image: spark-historyserver
-    container_name: sparkhistoryserver
-    hostname: sparkhistoryserver
-    ports:
-      - "9093:18080"
-    depends_on:
-      - namenode
-      - resourcemanager
-    volumes:
-      - namenode:/opt/spark/eventLog
-    networks:
-      - bridge
+  # sparkhistoryserver:
+  #   image: spark-historyserver
+  #   container_name: sparkhistoryserver
+  #   hostname: sparkhistoryserver
+  #   ports:
+  #     - "9093:18080"
+  #   depends_on:
+  #     - namenode
+  #     - resourcemanager
+  #   volumes:
+  #     - namenode:/opt/spark/eventLog
+  #   networks:
+  #     - bridge
 
-  zeppelin:
-    image: zeppelin
-    container_name: zeppelin
-    hostname: zeppelin
-    ports:
-      - "9097:8080"
-    networks:
-      - bridge
-    volumes:
-      - namenode:/opt/spark/eventLog
-      - /env/hadoop-eco/hadoop/zeppelin/notebook:/zeppelin-0.10.1-bin-all/notebook
-      - /home/ec2-user/testdata:/testdata
+  # zeppelin:
+  #   image: zeppelin
+  #   container_name: zeppelin
+  #   hostname: zeppelin
+  #   ports:
+  #     - "9097:8080"
+  #   networks:
+  #     - bridge
+  #   volumes:
+  #     - namenode:/opt/spark/eventLog
+  #     - /env/hadoop-eco/hadoop/zeppelin/notebook:/zeppelin-0.10.1-bin-all/notebook
+  #     - /home/ec2-user/testdata:/testdata
 
 volumes:
   namenode:

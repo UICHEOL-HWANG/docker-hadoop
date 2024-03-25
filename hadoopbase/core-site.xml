@@ -6,4 +6,12 @@
     <value>hdfs://namenode:9000/</value>
     <description>NameNode URI</description>
   </property>  
+  <property>
+    <name>hadoop.http.staticuser.user</name>
+    <value>root</value>
+  </property>
+  <property>
+          <name>dfs.webhdfs.enabled</name>
+          <value>true</value>
+  </property>
 </configuration>
